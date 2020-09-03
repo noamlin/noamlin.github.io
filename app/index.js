@@ -1,12 +1,14 @@
 "use strict";
 
+const path = require('path');
+const baseDir = path.resolve(__dirname, '../');
 const express = require('express');
 const app = express();
 const port = 1337;
 const nunjucksEnv = require('./nunjucks-env.js');
 nunjucksEnv.express(app);
 
-app.use('/public', express.static(`${__dirname}/public/`));
+app.use('/public', express.static(`${baseDir}/public/`));
 app.get('/', (req, res) => { res.render('homepage.njk'); });
 app.get('/projects', (req, res) => { res.render('projects.njk'); });
 app.get('/contact', (req, res) => { res.render('contact.njk'); });

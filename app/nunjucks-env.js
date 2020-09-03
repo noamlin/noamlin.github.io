@@ -1,8 +1,10 @@
 "use strict";
 
+const path = require('path');
+const baseDir = path.resolve(__dirname, '../');
 const nunjucks = require('nunjucks');
 
-const nunjucksEnv = nunjucks.configure('views', {
+const nunjucksEnv = nunjucks.configure(`${baseDir}/views`, {
 	autoescape: true,
 	noCache: true/*(default: false) never use a cache and recompile templates each time (server-side)*/
 });
