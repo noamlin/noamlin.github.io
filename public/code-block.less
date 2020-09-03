@@ -1,0 +1,78 @@
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
+
+@digit-width: 7px;
+@lines-gap-1: 40px;
+@lines-gap-10: @lines-gap-1 + @digit-width;
+@lines-gap-100: @lines-gap-10 + @digit-width;
+
+@line-height: 140%;
+
+@border-left-width: 7px;
+@border-radius: 3px;
+@code-border-radius: max(@border-radius - 1, 0);
+@lines-border-radius: max(@border-radius - @border-left-width, 0);
+
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+div.wrapper {
+	display: flex;
+	justify-content: flex-start;
+
+	border-style: solid;
+	border-color: #3d7e9a;
+	border-width: 1px 2px 1px @border-left-width;
+	border-radius: @border-radius;
+	position: relative;
+	box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.25);
+	color: #202020;
+	font-family: 'Source Code Pro', monospace;
+	font-size: 14px;
+
+	pre {
+		display: inline-block;
+		white-space: pre;
+		width: calc(100% - @lines-gap-1);
+		border-radius: 0 @code-border-radius 0 @code-border-radius;
+		margin: 0;
+		padding: 8px;
+		background-color: rgb(240,240,240);
+		line-height: @line-height;
+
+		code, span {
+			line-height: @line-height;
+		}
+	}
+	p.lines {
+		display: inline-block;
+		width: @lines-gap-1;
+		border-radius: @lines-border-radius 0 0 @lines-border-radius;
+		border: 0;
+		white-space: pre;
+		text-align: right;
+		padding: 8px 10px 8px 0;
+		background-color: rgb(220,220,230);
+		border-right: 1px solid rgba(0,0,0,0.08);
+		color: rgb(140,140,150);
+		line-height: @line-height;
+	}
+
+	&.lines10 {
+		pre {
+			width: calc(100% - @lines-gap-10);
+		}
+		p.lines {
+			width: @lines-gap-10;
+		}
+	}
+	&.lines100 {
+		pre {
+			width: calc(100% - @lines-gap-100);
+		}
+		p.lines {
+			width: @lines-gap-100;
+		}
+	}
+}

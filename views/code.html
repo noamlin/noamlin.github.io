@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+	<style>
+code-block {
+	display: inline-block;
+	width: 500px;
+}
+	</style>
+</head>
+<body>
+	<code-block data-language="javascript">
+var f = () => {
+	let b = true;
+	let c = [
+		{a:1, b:2},
+		{a:1, b:2}
+	];
+}
+	</code-block>
+	<br><br>
+	<code-block data-language="javascript">
+class Rectangle {
+	constructor(height, width) {
+		this.height = height;
+		this.width = width;
+	}
+	// Getter
+	get area() {
+		return this.calcArea();
+	}
+	// Method
+	calcArea() {
+		return this.height * this.width;
+	}
+ }
+	</code-block>
+	<script src="https://cdn.jsdelivr.net/npm/prismjs@1.21.0/prism.min.js" data-manual></script>
+	<script src="../public/code-block.js"></script>
+</body>
+</html>

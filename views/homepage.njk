@@ -1,0 +1,34 @@
+{% set menuItems = [{name: 'Projects', href: '/projects'}, {name: 'Contact', href: '/contact'}] %}
+
+{% extends "layout.njk" %}
+
+{% block title %}Home Page{% endblock %}
+
+{% block body %}
+<div class="hero-cover main-big">
+	<div class="content">
+		<h2>A bit about me</h2>
+		<p>
+			Hi there.
+			My name is Noam Lin and I've been developing software since I was 13 years old.
+			I first started around 2003 using C++ and PHP.
+			In my recent years I've been using JavaScript (NodeJS) working as a Full-Stack developer.
+			On my website you'll find just few examples of my projects.
+		</p>
+		<a class="square" href="/projects"><span>View Projects</span></a>
+	</div>
+</div>
+
+<div class="blocks-row blocks-2">
+	{% include "blocks/oh.njk" %}
+	{% include "blocks/proxserve.njk" %}
+</div>
+
+<div class="hero-cover small main-small">
+	<div class="content">
+		<h3>Do you need anything?</h3>
+		<h3>Got something to say?</h3>
+		<a class="square" href="/contact"><span>Contact Me</span></a>
+	</div>
+</div>
+{% endblock %}

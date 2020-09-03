@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap');
+/* dimensions */
+/* colors */
+/* fonts */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  font-size: 12px;
+}
+body {
+  color: black;
+  font-family: 'Fira Code', monospace;
+  font-size: inherit;
+  line-height: normal;
+  text-rendering: optimizeLegibility;
+}
+a,
+button {
+  color: black;
+  text-decoration: none;
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  font-size: 110%;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+a:hover,
+button:hover,
+a:active,
+button:active,
+a:visited,
+button:visited {
+  color: black;
+}
+a.classic,
+button.classic {
+  line-height: 200%;
+  padding: 1px 1rem;
+  display: inline-block;
+  position: relative;
+}
+a.classic::after,
+button.classic::after {
+  content: "";
+  display: block;
+  position: absolute;
+  bottom: 0;
+  left: 1rem;
+  height: 2px;
+  width: calc(100% - 2rem);
+  background-color: black;
+  transform: scaleX(1);
+  transition-property: transform;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
+}
+a.classic:hover::after,
+button.classic:hover::after {
+  transform: scaleX(0);
+}
+a.square,
+button.square {
+  text-transform: uppercase;
+  background-color: #00a390;
+  color: white;
+  border: 2px solid #00a390;
+  outline-width: 0;
+  padding: 26px 36px;
+  position: relative;
+  overflow: hidden;
+  transition-property: color;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-out;
+}
+a.square > span,
+button.square > span {
+  font-family: inherit;
+  color: inherit;
+  position: relative;
+  z-index: 2;
+}
+a.square::after,
+button.square::after {
+  content: "";
+  display: block;
+  position: absolute;
+  left: 6px;
+  right: 6px;
+  top: 6px;
+  bottom: 6px;
+  background-color: white;
+  transform: scale(0);
+  opacity: 0;
+  transition-property: transform, opacity;
+  transition-duration: 0.2s;
+  transition-timing-function: ease-out;
+  z-index: 1;
+}
+a.square:hover,
+button.square:hover {
+  color: #007a6c;
+}
+a.square:hover::after,
+button.square:hover::after {
+  transform: scale(1);
+  opacity: 1;
+}
+div#mobile-menu {
+  position: fixed;
+  z-index: 9;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: 0.4s, 0s;
+  transition-delay: 0s, 0.4s;
+}
+div#mobile-menu.show {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s, 0s;
+}
+div#mobile-menu div.x-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100px;
+  padding: 3vw 7vw;
+  text-align: right;
+}
+div#mobile-menu div.x-bar a {
+  display: inline-block;
+  width: 35px;
+  height: 30px;
+  position: relative;
+  background-color: white;
+}
+div#mobile-menu div.x-bar a span {
+  display: inline-block;
+  width: 100%;
+  height: 4px;
+  background-color: black;
+  position: absolute;
+  top: 12px;
+  left: 0;
+}
+div#mobile-menu div.x-bar a span:first-child {
+  transform: rotate(45deg);
+}
+div#mobile-menu div.x-bar a span:last-child {
+  transform: rotate(-45deg);
+}
+div#mobile-menu div.menu-items {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+div#mobile-menu div.menu-items a {
+  font-size: 200%;
+  margin: 2vh 0;
+}
+header {
+  padding: 3vw 7vw;
+  font-family: 'Montserrat', sans-serif;
+  display: flex;
+  margin-bottom: 1rem;
+}
+header div.logo {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  width: 70%;
+}
+header div.logo a {
+  font-size: 200%;
+}
+header div.logo span {
+  padding-left: 20px;
+  font-size: 90%;
+  font-weight: 700;
+  letter-spacing: 9px;
+}
+header div.menu {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+}
+header a.menu-toggle {
+  display: none;
+  width: 35px;
+  height: 30px;
+  justify-content: center;
+  align-items: flex-end;
+  flex-direction: column;
+}
+header a.menu-toggle span {
+  display: inline-block;
+  width: 100%;
+  height: 4px;
+  background-color: black;
+  margin: 3px 0;
+}
+div.hero-cover {
+  background-size: cover;
+  padding: 60px;
+  position: relative;
+  color: white;
+  margin-bottom: 2rem;
+}
+div.hero-cover::before {
+  content: "";
+  background-color: #007a6c;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  opacity: 0.85;
+  z-index: 1;
+}
+div.hero-cover div.content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  min-height: 380px;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+}
+div.hero-cover div.content h2,
+div.hero-cover div.content h3 {
+  margin-bottom: 1rem;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 800;
+  font-size: 400%;
+}
+div.hero-cover div.content h3 {
+  font-size: 300%;
+}
+div.hero-cover div.content p {
+  margin-bottom: 1rem;
+  font-family: 'Fira Code', monospace;
+  font-size: 130%;
+  line-height: 2.25;
+}
+div.hero-cover div.content a.square {
+  border-color: white;
+  background-color: transparent;
+  margin-top: 1rem;
+}
+div.hero-cover div.content a.square:hover {
+  color: black;
+}
+div.hero-cover div.content > * {
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+}
+div.hero-cover.small {
+  width: 90vw;
+  margin-left: 5vw;
+  margin-right: 5vw;
+}
+div.hero-cover.small div.content {
+  min-height: 300px;
+}
+div.hero-cover.main-big {
+  background-image: url(images/christopher-gower-unsplash.jpg);
+  background-position: 50% 50%;
+}
+div.hero-cover.main-small {
+  background-image: url(images/jeshoots-com-unsplash.jpg);
+  background-position: 50% 50%;
+}
+div.blocks-row {
+  width: 90vw;
+  margin: 9vh 5vw;
+  display: flex;
+  justify-content: space-between;
+}
+div.blocks-row.blocks-2 > div.block {
+  width: 47%;
+}
+div.blocks-row > div.block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+div.blocks-row > div.block > * {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+div.blocks-row > div.block i[class*="fa-"] {
+  font-size: 400%;
+  color: #00a390;
+}
+div.blocks-row > div.block h3 {
+  font-size: 230%;
+  font-family: 'Heebo', sans-serif;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+div.blocks-row > div.block p {
+  font-size: 110%;
+  font-family: 'Fira Code', monospace;
+  line-height: 2.3;
+}
+div.blocks-row > div.block iframe {
+  width: 100%;
+  height: 300px;
+}
+div.cover {
+  height: 200px;
+  background-size: cover;
+}
+div.cover.projects {
+  background-image: url(images/dan-lefebvre-unsplash-wide.jpg);
+  background-position: 50% 11%;
+}
+div.cover.contact {
+  background-image: url(images/quino-al-unsplash.jpg);
+  background-position: 50% 50%;
+}
+div.form form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+}
+div.form form h6 {
+  font-family: 'Heebo', sans-serif;
+  font-size: 150%;
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+div.form form label {
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  margin-bottom: 1rem;
+}
+div.form form input,
+div.form form textarea {
+  margin-bottom: 2.5rem;
+  border: 2px solid black;
+  font-size: 125%;
+  padding: 1.5rem;
+}
+div.form form h6,
+div.form form label,
+div.form form input,
+div.form form textarea {
+  width: 100%;
+}
+div.blocks-row > div.block.form > form {
+  text-align: left;
+}
+footer {
+  width: 88vw;
+  margin: 9vw 6vw;
+  display: flex;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+footer div.menu {
+  width: 70%;
+  height: 2.5rem;
+  line-height: 2.5rem;
+  margin-bottom: 4rem;
+}
+footer div.menu a.classic {
+  margin-right: 1.5rem;
+}
+footer div.menu a.classic:last-child {
+  margin-right: 0;
+}
+footer div.menu a.classic::after {
+  height: 1px;
+  bottom: 2px;
+}
+footer div.social {
+  width: 30%;
+  height: 2.5rem;
+  margin-bottom: 4rem;
+  text-align: right;
+}
+footer div.social:hover a {
+  opacity: 0.6;
+}
+footer div.social:hover a:hover {
+  opacity: 1;
+}
+footer div.social a {
+  display: inline-block;
+  margin-left: 1rem;
+  margin-top: 0.25rem;
+}
+footer div.social a img {
+  width: 2rem;
+  height: 2rem;
+}
+footer div.social a:first-child {
+  margin-left: 0;
+}
+footer span.site-info {
+  font-size: 110%;
+}
+@media screen and (max-width: 959px) {
+  header div.logo {
+    width: calc(100% - 35px);
+  }
+  header div.menu {
+    display: none;
+  }
+  header a.menu-toggle {
+    display: flex;
+  }
+  footer {
+    flex-direction: column;
+  }
+  footer div.menu,
+  footer div.social,
+  footer span.site-info {
+    width: 100%;
+    text-align: center;
+  }
+}
+@media screen and (max-width: 779px) {
+  header {
+    margin-bottom: 0;
+    padding: 5vw 7vw;
+  }
+  header div.logo {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  header div.logo span {
+    padding-top: 10px;
+    padding-left: 0;
+    text-align: left;
+  }
+}
+@media screen and (max-width: 599px) {
+  div.blocks-row {
+    flex-direction: column;
+  }
+  div.blocks-row.blocks-2 > div.block {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  div.blocks-row.blocks-2 > div.block:last-child {
+    margin-bottom: 0;
+  }
+  footer div.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: auto;
+  }
+  footer div.menu a.classic {
+    width: max-content;
+    margin: 0 0 1rem 0;
+  }
+  footer div.menu a.classic:last-child {
+    margin: 0;
+  }
+}

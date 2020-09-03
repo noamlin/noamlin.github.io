@@ -1,0 +1,31 @@
+{% set menuItems = [{name: 'Projects', href: '/projects'}, {name: 'Contact', href: '/contact'}] %}
+
+{% extends "layout.njk" %}
+
+{% block title %}Contact{% endblock %}
+
+{% block body %}
+<div class="cover contact"></div>
+
+<div class="blocks-row blocks-2">
+	<div class="block">
+		<h3>My Location</h3>
+		<p>
+			Tel Aviv, Israel
+		</p>
+		<iframe frameborder="0" scrolling="no" src="https://maps.google.com/maps?q=gordon,%20tel%20aviv,%20israel+()&t=k&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
+	</div>
+	<div class="block form">
+		<form action="" onsubmit="alert('Under Construction'); return false;">
+			<h6>Let's Talk</h6>
+			<label for="c_name">Name *</label>
+			<input class="text" id="c_name" name="name" required />
+			<label for="c_email">E-Mail *</label>
+			<input class="text" id="c_email" name="email" required />
+			<label for="c_msg">Message *</label>
+			<textarea id="c_msg" name="msg" rows="6" required></textarea>
+			<button class="square" type="submit"><span>Contact Me</span></button>
+		</form>
+	</div>
+</div>
+{% endblock %}
