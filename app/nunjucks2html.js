@@ -4,9 +4,9 @@ const path = require('path');
 const baseDir = path.resolve(__dirname, '../');
 const fs = require('fs');
 const nunjucksEnv = require('./nunjucks-env.js');
-const njks = ['homepage.njk', 'projects.njk', 'contact.njk',
-	'oh/getting-started.njk', 'oh/api.njk', 'oh/demos.njk',
-	'proxserve/getting-started.njk', 'proxserve/api.njk', 'proxserve/demos.njk'
+const njks = ['index.njk', 'projects.njk', 'contact.njk',
+	'oh/index.njk', 'oh/api.njk', 'oh/demos.njk',
+	'proxserve/index.njk', 'proxserve/api.njk', 'proxserve/demos.njk'
 ];
 
 for(let njkPath of njks) {
