@@ -15,6 +15,7 @@ class CodeBlock extends HTMLElement {
 		let prismStylesElm = document.createElement('link');
 		prismStylesElm.setAttribute('rel', 'stylesheet');
 		prismStylesElm.setAttribute('href', 'https://cdn.jsdelivr.net/npm/prismjs@1.21.0/themes/prism.css');
+		//prismStylesElm.setAttribute('href', 'https://cdn.jsdelivr.net/npm/prismjs@1.21.0/themes/prism-twilight.css');
 
 		let wrapper = document.createElement('div');
 		wrapper.classList.add('wrapper');

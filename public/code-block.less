@@ -1,5 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro&display=swap');
 
+.theme-aqua() {
+	@border-color: rgb(61,126,154);
+	@background-color: rgb(240,240,240);
+	@background-color-line-numbers: rgb(220,220,230);
+	@color-line-numbers: rgb(140,140,150);
+	@box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.25);
+	@text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+}
+.theme-light-azure() {
+	@border-color: rgb(140, 188, 209);
+	@background-color: rgb(237, 250, 255);
+	@background-color-line-numbers: rgb(207, 240, 255);
+	@color-line-numbers: rgb(110,110,120);
+	@box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.2);
+	@text-shadow: 1px 1px 0 rgba(255,255,255,0.8);
+}
+.theme-dark() {
+	/*goes nice with prism's twilight theme*/
+	@border-color: rgb(0,0,0);
+	@background-color: rgb(50,50,50);
+	@background-color-line-numbers: rgb(60,60,60);
+	@color-line-numbers: rgb(0,0,0);
+	@box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.25);
+	@text-shadow: 1px 1px 2px rgba(255,255,255,0.4);
+}
+
 @digit-width: 7px;
 @lines-gap-1: 40px;
 @lines-gap-10: @lines-gap-1 + @digit-width;
@@ -18,15 +44,16 @@
 	box-sizing: border-box;
 }
 div.wrapper {
+	.theme-light-azure();
 	display: flex;
 	justify-content: flex-start;
 
 	border-style: solid;
-	border-color: #3d7e9a;
-	border-width: 1px 2px 1px @border-left-width;
+	border-color: @border-color;
+	border-width: 1px 1px 1px @border-left-width;
 	border-radius: @border-radius;
 	position: relative;
-	box-shadow: 0px 8px 5px -5px rgba(0,0,0,0.25);
+	box-shadow: @box-shadow;
 	color: #202020;
 	font-family: 'Source Code Pro', monospace;
 	font-size: 14px;
@@ -35,10 +62,11 @@ div.wrapper {
 		display: inline-block;
 		white-space: pre;
 		width: calc(100% - @lines-gap-1);
-		border-radius: 0 @code-border-radius 0 @code-border-radius;
+		border-width: 0;
+		border-radius: 0 @code-border-radius @code-border-radius 0;
 		margin: 0;
 		padding: 8px;
-		background-color: rgb(240,240,240);
+		background-color: @background-color;
 		line-height: @line-height;
 
 		code, span {
@@ -53,9 +81,10 @@ div.wrapper {
 		white-space: pre;
 		text-align: right;
 		padding: 8px 10px 8px 0;
-		background-color: rgb(220,220,230);
+		background-color: @background-color-line-numbers;
 		border-right: 1px solid rgba(0,0,0,0.08);
-		color: rgb(140,140,150);
+		color: @color-line-numbers;
+		text-shadow: @text-shadow;
 		line-height: @line-height;
 	}
 

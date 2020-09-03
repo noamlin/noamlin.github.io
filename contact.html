@@ -57,18 +57,35 @@
 		<iframe frameborder="0" scrolling="no" src="https://maps.google.com/maps?q=gordon,%20tel%20aviv,%20israel+()&t=k&z=14&ie=UTF8&iwloc=B&output=embed"></iframe>
 	</div>
 	<div class="block form">
-		<form action="" onsubmit="alert('Under Construction'); return false;">
+		<form action="" id="contact-form">
 			<h6>Let's Talk</h6>
 			<label for="c_name">Name *</label>
 			<input class="text" id="c_name" name="name" required />
-			<label for="c_email">E-Mail *</label>
-			<input class="text" id="c_email" name="email" required />
+			<label for="c_phone">Phone Number</label>
+			<input class="text" id="c_phone" name="phone" />
 			<label for="c_msg">Message *</label>
 			<textarea id="c_msg" name="msg" rows="6" required></textarea>
-			<button class="square" type="submit"><span>Contact Me</span></button>
+			<button class="square" type="submit"><span>Contact Me</span></button><a class="hidden-submit"></a>
 		</form>
 	</div>
 </div>
+<script>
+	const contactForm = document.querySelector('#contact-form');
+	contactForm.addEventListener('submit', (event) => {
+		let a = contactForm.querySelector('a.hidden-submit');
+		let name = contactForm.querySelector('#c_name').value.trim();
+		let subject = `Contact from ${name}`;
+		let phone = contactForm.querySelector('#c_phone').value.trim();
+		let msg = contactForm.querySelector('#c_msg').value.trim();
+		let body = `${subject} via www.noaml.in:\n${msg}`;
+		if(phone.length > 0) body += `\n\nPhone number: ${phone}`;
+		let href = `mailto:noamlin@gmail.com?subject=${encodeURIComponent('Contact from '+name)}&body=${encodeURIComponent(body)}`;
+		a.setAttribute('href', href);
+		a.click();
+		event.preventDefault();
+		return false;
+	});
+</script>
 
 	</main>
 
