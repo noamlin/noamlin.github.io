@@ -1,8 +1,4 @@
-{% set menuItems = [{name: 'Projects', href: '/projects'}, {name: 'Contact', href: '/contact'}] %}
-
-{% extends "layout.njk" %}
-
-{% block title %}Home Page{% endblock %}
+{% layout "layout.liquid", pageTitle: 'Home Page' %}
 
 {% block body %}
 <div class="hero-cover main-big">
@@ -20,8 +16,8 @@
 </div>
 
 <div class="blocks-row blocks-2">
-	{% include "blocks/oh.njk" %}
-	{% include "blocks/proxserve.njk" %}
+	{% render 'partials/block-oh.liquid' %}
+	{% render 'partials/block-proxserve.liquid' %}
 </div>
 
 <div class="hero-cover small main-small">

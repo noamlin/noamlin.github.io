@@ -1,14 +1,14 @@
 "use strict";
 
 window.addEventListener('DOMContentLoaded', (event) => {
-	const mobileMenu = document.querySelector('#mobile-menu');
-	const primaryMenuBtn = document.querySelector('header > a.menu-toggle');
-	primaryMenuBtn.addEventListener('click', (event) => {
-		mobileMenu.classList.add('show');
+	const mainMenu = document.querySelector('header > div.menu');
+	const toggleMenuBtn = document.querySelector('header > a.menu-toggle');
+	toggleMenuBtn.addEventListener('click', (event) => {
+		mainMenu.classList.add('show');
 	});
 
-	const mobileMenuXBtn = mobileMenu.querySelector('div.x-bar > a');
-	mobileMenuXBtn.addEventListener('click', (event) => {
-		mobileMenu.classList.remove('show');
+	const menuXBtn = mainMenu.querySelector('div.x-bar > a');
+	menuXBtn.addEventListener('click', (event) => {
+		mainMenu.classList.remove('show');
 	});
 });

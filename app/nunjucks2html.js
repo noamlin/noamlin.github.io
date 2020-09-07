@@ -12,7 +12,9 @@ const njks = ['index.njk', 'projects.njk', 'contact.njk',
 for(let njkPath of njks) {
 	let dest = njkPath.slice(0, njkPath.lastIndexOf('.')) + '.html';
 
-	fs.writeFile(`${baseDir}/${dest}`, nunjucksEnv.render(njkPath), (err) => {
+	fs.writeFile(`${baseDir}/${dest}`, nunjucksEnv.render(njkPath, {
+		isCompiling: true
+	}), (err) => {
 		if(err) console.error(err);
 		else console.log(`file ${dest} created`);
 	});

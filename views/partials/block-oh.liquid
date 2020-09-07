@@ -1,0 +1,7 @@
+{% capture ohText  %}
+Object Hub is a library that changes the concept of server-client.
+It creates a “hub” on the server for an object.
+All clients connected to the hub are always synchronized - mirroring changes from one client to another on the fly.
+Your code doesn’t change an inch - it just happens, like magic.
+{% endcapture %}
+{% render 'partials/block.liquid', headline: 'OH!', icon: 'fas fa-people-arrows', aHref: '/oh', aText: 'Go 2 OH!', p: ohText %}

@@ -1,8 +1,4 @@
-{% set menuItems = [{name: 'Projects', href: '/projects'}, {name: 'Contact', href: '/contact'}] %}
-
-{% extends "layout.njk" %}
-
-{% block title %}Contact{% endblock %}
+{% layout "layout.liquid", pageTitle: 'Contact' %}
 
 {% block body %}
 <div class="cover contact"></div>
