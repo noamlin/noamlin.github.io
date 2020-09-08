@@ -40,7 +40,7 @@ const pages = ['index.liquid', 'projects.liquid', 'contact.liquid',
 ];
 
 for(let page of pages) {
-	let dest = 'site-pages/' + page.slice(0, page.lastIndexOf('.')) + '.html';
+	let dest = 'docs/' + page.slice(0, page.lastIndexOf('.')) + '.html';
 
 	liquidEngine.renderFile(page).then((htmlStr) => {
 		fs.writeFile(`${baseDir}/${dest}`, htmlStr, (err) => {
