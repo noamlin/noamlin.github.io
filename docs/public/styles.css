@@ -265,13 +265,11 @@ div.blocks-row {
   display: flex;
   justify-content: space-between;
 }
-div.blocks-row.blocks-2 > div.block {
-  width: 47%;
-}
 div.blocks-row > div.block {
   display: flex;
   flex-direction: column;
   align-items: center;
+  width: 100%;
 }
 div.blocks-row > div.block > * {
   text-align: center;
@@ -281,11 +279,15 @@ div.blocks-row > div.block i[class*="fa-"] {
   font-size: 400%;
   color: #00a390;
 }
+div.blocks-row > div.block h2,
 div.blocks-row > div.block h3 {
-  font-size: 230%;
+  font-size: 300%;
   font-family: 'Heebo', sans-serif;
   font-weight: 800;
   letter-spacing: 1px;
+}
+div.blocks-row > div.block h3 {
+  font-size: 230%;
 }
 div.blocks-row > div.block p {
   font-size: 110%;
@@ -295,6 +297,9 @@ div.blocks-row > div.block p {
 div.blocks-row > div.block iframe {
   width: 100%;
   height: 300px;
+}
+div.blocks-row.blocks-2 > div.block {
+  width: 47%;
 }
 div.cover {
   height: 200px;
@@ -314,6 +319,10 @@ div.form form {
   align-items: flex-start;
   width: 100%;
 }
+div.form form h2,
+div.form form h3 {
+  margin-bottom: 3rem;
+}
 div.form form h6 {
   font-family: 'Heebo', sans-serif;
   font-size: 150%;
@@ -328,7 +337,8 @@ div.form form label {
   margin-bottom: 1rem;
 }
 div.form form input,
-div.form form textarea {
+div.form form textarea,
+div.form form select {
   margin-bottom: 2.5rem;
   border: 2px solid black;
   font-size: 125%;
@@ -337,8 +347,12 @@ div.form form textarea {
 div.form form h6,
 div.form form label,
 div.form form input,
-div.form form textarea {
+div.form form textarea,
+div.form form select {
   width: 100%;
+}
+div.form form select {
+  background-color: transparent;
 }
 div.blocks-row > div.block.form > form {
   text-align: left;

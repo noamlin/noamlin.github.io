@@ -1,0 +1,187 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<title>Noam Lin - ESK8 Calculator</title>
+
+	<link rel="stylesheet" href="https://www.noaml.in/public/styles.css">
+	<script src="https://kit.fontawesome.com/9c604325d3.js" crossorigin="anonymous"></script>
+</head>
+<body>
+	<header>
+		<div class="logo">
+			<a href="https://www.noaml.in">Noam Lin</a>
+			<span>software development</span>
+		</div>
+		<div class="menu">
+			<div class="x-bar">
+				<a href="javascript:;">
+					<span></span>
+					<span></span>
+				</a>
+			</div>
+			<div class="items">
+			
+				<a class="classic" href="/projects">Projects</a>
+			
+				<a class="classic" href="/contact">Contact</a>
+			
+			</div>
+		</div>
+		<a class="menu-toggle" href="javascript:;">
+			<span></span>
+			<span></span>
+			<span></span>
+		</a>
+	</header>
+
+	<main>
+		
+<div class="blocks-row">
+	<div class="block form">
+		<form action="" id="calc-form">
+			<h2>ESK8 Calculator</h2>
+
+			<h6>Battery</h6>
+			<label for="nominal-voltage">Nominal voltage per cell</label>
+			<select id="nominal-voltage">
+				<option value="3.6">3.6v (Li-ion)</option>
+				<option value="3.7">3.7v (LiPo)</option>
+				<option value="3.25">3.25v (LiFePO4)</option>
+			</select>
+			<label for="num-of-cells">Cells in series</label>
+			<input class="text" id="num-of-cells" type="number" min="6" max="20" placeholder="6S - 20S" required />
+
+			<h6>Motor</h6>
+			<label for="pole-pairs">Pole pairs</label>
+			<input class="text" id="pole-pairs" type="number" min="4" placeholder="usually 7" required />
+			<label for="motor-kv">Kv (RPM per volt)</label>
+			<input class="text" id="motor-kv" type="number" min="10" placeholder="60,140,200 etc.." required />
+			<label for="motor-pulley">Pulley teeth</label>
+			<input class="text" id="motor-pulley" type="number" min="5" placeholder="14,15,16 etc.." required />
+
+			<h6>Wheel</h6>
+			<label for="wheel-size">Size (mm)</label>
+			<input class="text" id="wheel-size" type="number" min="50" placeholder="83,90,97,107 etc.." required />
+			<label for="wheel-pulley">Pulley teeth</label>
+			<input class="text" id="wheel-pulley" type="number" min="5" placeholder="32,38,62,66 etc.." required />
+
+			<h6>Custom</h6>
+			<label for="speed-limit">I want to limit my speed (Km/h)</label>
+			<input class="text" id="speed-limit" type="number" min="0" placeholder="20, 25, 30 etc.." />
+
+			<h6 id="results-label" style="display: none; color: #090">Results</h6>
+			<textarea id="results" rows="2" style="display: none; border-color: #090"></textarea>
+
+			<button class="square" type="submit"><span>Calculate</span></button>
+		</form>
+	</div>
+</div>
+<script>
+	function isNumeric(variable) {
+		if(typeof variable === 'string' && variable === '') return false;
+		else return !isNaN(variable);
+	}
+
+	function mm2km(mm) {
+		let cm = mm / 10;
+		let m = cm / 100;
+		let km = m / 1000;
+		return km;
+	}
+
+	function calculate() {
+		let data = new Map();
+		data.set('nominal voltage', document.querySelector('#nominal-voltage').value);
+		data.set('number of cells', document.querySelector('#num-of-cells').value);
+		data.set('motor pole pairs', document.querySelector('#pole-pairs').value);
+		data.set('motor Kv', document.querySelector('#motor-kv').value);
+		data.set('motor pulley teeth', document.querySelector('#motor-pulley').value);
+		data.set('wheel pulley teeth', document.querySelector('#wheel-pulley').value);
+		data.set('wheel size', document.querySelector('#wheel-size').value);
+		data.set('speed limit', document.querySelector('#speed-limit').value);
+
+		for(let [key, value] of data) {
+			if(isNumeric(value)) {
+				if(key === 'nominal voltage') data.set(key, parseFloat(value));
+				else data.set(key, parseInt(value));
+			}
+			else if(key === 'speed limit') {
+				data.set(key, 0);
+			}
+			else {
+				alert(`${key} is invalid`);
+				return;
+			}
+		}
+
+		let voltage = data.get('number of cells') * data.get('nominal voltage');
+		let gearRatio = data.get('motor pulley teeth') / data.get('wheel pulley teeth');
+		let wheelCircumference = Math.PI * data.get('wheel size');
+		let maxMotorRPM = data.get('motor Kv') * voltage;
+		let maxMotorERPM = maxMotorRPM * data.get('motor pole pairs');
+		let topSpeed = mm2km(maxMotorRPM * gearRatio * 60 * wheelCircumference);
+
+		let results = {
+			gear_ratio: gearRatio.toFixed(2),
+			top_speed: topSpeed.toFixed(2),
+			speed_limit: {
+				speed: data.get('speed limit'),
+				rpm: 0,
+				erpm: 0
+			}
+		};
+
+		if(data.get('speed limit') > 0) {
+			let ratio = data.get('speed limit') / topSpeed;
+			results.speed_limit.rpm = (maxMotorRPM * ratio).toFixed(2);
+			results.speed_limit.erpm = (maxMotorERPM * ratio).toFixed(2);
+		}
+
+		return results;
+	}
+
+	const calcForm = document.querySelector('#calc-form');
+	calcForm.addEventListener('submit', (event) => {
+		let calculations = calculate();
+		let resultsElm = calcForm.querySelector('#results');
+		let resultsText = `- Gear ratio: ${calculations.gear_ratio}\n- Top speed: ${calculations.top_speed} Km/h`;
+
+		if(calculations.speed_limit.speed > 0) {
+			resultsElm.setAttribute('rows', 4);
+			resultsText += `\n- Set your ESC to max ${calculations.speed_limit.erpm} ERPM (${calculations.speed_limit.rpm} RPM)\n  to limit your board to ${calculations.speed_limit.speed} Km/h`;
+		} else {
+			resultsElm.setAttribute('rows', 2);
+		}
+
+		resultsElm.value = resultsText;
+		resultsElm.style.display = 'block';
+		calcForm.querySelector('#results-label').style.display = 'block';
+		event.preventDefault();
+		return false;
+	});
+</script>
+
+	</main>
+
+	<footer>
+		<div class="menu">
+		
+			<a class="classic" href="/projects">Projects</a>
+		
+			<a class="classic" href="/contact">Contact</a>
+		
+		</div>
+		<div class="social">
+			<a href="https://www.facebook.com/noam.lin90" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.6.0/icons/facebook.svg"></a>
+			<a href="https://www.instagram.com/lin.noam" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.6.0/icons/instagram.svg"></a>
+			<a href="https://www.linkedin.com/in/noam-lin-8bb114b0/" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.6.0/icons/linkedin.svg"></a>
+			<a href="https://github.com/noamlin" target="_blank"><img src="https://cdn.jsdelivr.net/npm/simple-icons@3.6.0/icons/github.svg"></a>
+		</div>
+		<span class="site-info">2020 Noam Lin</span>
+	</footer>
+
+	<script src="https://www.noaml.in/public/scripts.js"></script>
+</body>
+</html>

@@ -40,11 +40,12 @@ app.engine('liquid', liquidEngine.express());
 app.set('views', `${baseDir}/views`);
 app.set('view engine', 'liquid');
 
-app.use('/public', express.static(`${baseDir}/public/`));
+app.use('/public', express.static(`${baseDir}/docs/public/`));
 
 app.get('/', (req, res) => { res.render('index.liquid'); });
 app.get('/projects', (req, res) => { res.render('projects.liquid'); });
 app.get('/contact', (req, res) => { res.render('contact.liquid'); });
+app.get('/esk8', (req, res) => { res.render('esk8.liquid'); });
 
 app.get('/oh', (req, res) => { res.render('oh/index.liquid'); });
 app.get('/oh/getting-started', (req, res) => { res.render('oh/getting-started.liquid'); });

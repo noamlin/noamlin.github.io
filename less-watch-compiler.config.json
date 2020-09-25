@@ -1,4 +1,4 @@
 {
-	"watchFolder": "./public",
-	"outputFolder": "./public"
+	"watchFolder": "./docs/public",
+	"outputFolder": "./docs/public"
 }

@@ -34,7 +34,7 @@ const liquidEngine = new Liquid({
 	}
 });
 
-const pages = ['index.liquid', 'projects.liquid', 'contact.liquid',
+const pages = ['index.liquid', 'projects.liquid', 'contact.liquid', 'esk8.liquid',
 	'oh/index.liquid', 'oh/getting-started.liquid', 'oh/api.liquid', 'oh/demos.liquid',
 	'proxserve/index.liquid', 'proxserve/getting-started.liquid', 'proxserve/api.liquid', 'proxserve/demos.liquid'
 ];
