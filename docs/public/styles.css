@@ -11,6 +11,9 @@
 }
 html {
   font-size: 12px;
+  --color_theme-main: #007a6c;
+  --color_theme-light: #00a390;
+  --color_theme-dark: #005148;
 }
 body {
   color: black;
@@ -110,6 +113,24 @@ a.square:hover::after,
 button.square:hover::after {
   transform: scale(1);
   opacity: 1;
+}
+a.square.danger,
+button.square.danger {
+  background-color: red;
+  border-color: red;
+}
+a.square.danger:hover,
+button.square.danger:hover {
+  color: red;
+}
+a.square.warn,
+button.square.warn {
+  background-color: orange;
+  border-color: orange;
+}
+a.square.warn:hover,
+button.square.warn:hover {
+  color: orange;
 }
 header {
   padding: 3vw 7vw;
@@ -276,30 +297,109 @@ div.blocks-row > div.block > * {
   margin-bottom: 1rem;
 }
 div.blocks-row > div.block i[class*="fa-"] {
-  font-size: 400%;
   color: #00a390;
 }
+div.blocks-row > div.block i[class*="fa-"].big {
+  font-size: 400%;
+}
+div.blocks-row > div.block i[class*="fa-"].round {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 10px;
+  border: 1px solid #00a390;
+}
+div.blocks-row > div.block i[class*="fa-"].warning {
+  color: red;
+}
+div.blocks-row > div.block i[class*="fa-"].warning.round {
+  border-color: red;
+}
+div.blocks-row > div.block h1,
 div.blocks-row > div.block h2,
-div.blocks-row > div.block h3 {
-  font-size: 300%;
+div.blocks-row > div.block h3,
+div.blocks-row > div.block h4 {
+  font-size: 330%;
   font-family: 'Heebo', sans-serif;
   font-weight: 800;
   letter-spacing: 1px;
+  position: relative;
+}
+div.blocks-row > div.block h1 > a.anchor,
+div.blocks-row > div.block h2 > a.anchor,
+div.blocks-row > div.block h3 > a.anchor,
+div.blocks-row > div.block h4 > a.anchor {
+  display: inline-block;
+  width: 40px;
+  height: 24px;
+  background-image: url(images/icon-href-anchor.svg);
+  background-size: contain;
+  background-position: right center;
+  background-repeat: no-repeat;
+  position: absolute;
+  top: 0;
+  right: -39px;
+  opacity: 0;
+  transition-property: opacity;
+  transition-duration: 0.2s;
+  transition-delay: 0s;
+}
+div.blocks-row > div.block h1:hover > a.anchor,
+div.blocks-row > div.block h2:hover > a.anchor,
+div.blocks-row > div.block h3:hover > a.anchor,
+div.blocks-row > div.block h4:hover > a.anchor {
+  opacity: 1;
+}
+div.blocks-row > div.block h2 {
+  font-size: 300%;
+}
+div.blocks-row > div.block h2 > a.anchor {
+  width: 60px;
+  height: 38px;
+  right: -59px;
 }
 div.blocks-row > div.block h3 {
   font-size: 230%;
+}
+div.blocks-row > div.block h4 {
+  font-size: 180%;
+  margin-top: 1rem;
 }
 div.blocks-row > div.block p {
   font-size: 110%;
   font-family: 'Fira Code', monospace;
   line-height: 2.3;
 }
+div.blocks-row > div.block p a {
+  letter-spacing: 0;
+  font-size: 100%;
+  text-transform: none;
+  color: #005148;
+}
+div.blocks-row > div.block p a:hover {
+  color: black;
+}
+div.blocks-row > div.block p span.note {
+  opacity: 0.7;
+}
 div.blocks-row > div.block iframe {
   width: 100%;
   height: 300px;
 }
+div.blocks-row > div.block code-block {
+  display: block;
+  width: 100%;
+}
 div.blocks-row.blocks-2 > div.block {
   width: 47%;
+}
+div.blocks-row.docs > div.block {
+  align-items: flex-start;
+}
+div.blocks-row.docs > div.block > * {
+  text-align: left;
 }
 div.cover {
   height: 200px;
@@ -318,6 +418,22 @@ div.form form {
   flex-direction: column;
   align-items: flex-start;
   width: 100%;
+}
+div.form form > section {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
+  position: relative;
+}
+div.form form > section > div.alternative-bg {
+  background-color: #d1fffa;
+  position: absolute;
+  width: 96vw;
+  height: 100%;
+  top: 0;
+  left: -3vw;
+  z-index: -1;
 }
 div.form form h2,
 div.form form h3 {
@@ -359,7 +475,7 @@ div.blocks-row > div.block.form > form {
 }
 footer {
   width: 88vw;
-  margin: 9vw 6vw;
+  margin: 7vw 6vw;
   display: flex;
   justify-content: flex-start;
   flex-wrap: wrap;
@@ -462,6 +578,9 @@ footer span.site-info {
 @media screen and (max-width: 779px) {
   header {
     margin-bottom: 0;
+    padding: 5vw 7vw;
+  }
+  header div.menu div.x-bar {
     padding: 5vw 7vw;
   }
   header div.logo {

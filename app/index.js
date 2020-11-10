@@ -13,14 +13,12 @@ let menus = {
 		{name: 'Contact', href: '/contact'}
 	],
 	oh: [
-		{name: 'About', href: '/oh'},
-		{name: 'Getting Started', href: '/oh/getting-started'},
+		{name: 'Getting Started', href: '/oh'},
 		{name: 'API', href: '/oh/api'},
 		{name: 'Demos', href: '/oh/demos'}
 	],
 	proxserve: [
-		{name: 'About', href: '/proxserve'},
-		{name: 'Getting Started', href: '/proxserve/getting-started'},
+		{name: 'Getting Started', href: '/proxserve'},
 		{name: 'API', href: '/proxserve/api'},
 		{name: 'Demos', href: '/proxserve/demos'}
 	]

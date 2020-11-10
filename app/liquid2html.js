@@ -11,14 +11,12 @@ let menus = {
 		{name: 'Contact', href: '/contact'}
 	],
 	oh: [
-		{name: 'About', href: '/'},
-		{name: 'Getting Started', href: '/getting-started'},
+		{name: 'Getting Started', href: '/'},
 		{name: 'API', href: '/api'},
 		{name: 'Demos', href: '/demos'}
 	],
 	proxserve: [
-		{name: 'About', href: '/'},
-		{name: 'Getting Started', href: '/getting-started'},
+		{name: 'Getting Started', href: '/'},
 		{name: 'API', href: '/api'},
 		{name: 'Demos', href: '/demos'}
 	]
@@ -35,8 +33,8 @@ const liquidEngine = new Liquid({
 });
 
 const pages = ['index.liquid', 'projects.liquid', 'contact.liquid', 'esk8.liquid',
-	'oh/index.liquid', 'oh/getting-started.liquid', 'oh/api.liquid', 'oh/demos.liquid',
-	'proxserve/index.liquid', 'proxserve/getting-started.liquid', 'proxserve/api.liquid', 'proxserve/demos.liquid'
+	'oh/index.liquid', 'oh/api.liquid', 'oh/demos.liquid',
+	'proxserve/index.liquid', 'proxserve/api.liquid', 'proxserve/demos.liquid'
 ];
 
 for(let page of pages) {

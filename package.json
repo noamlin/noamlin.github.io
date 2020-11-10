@@ -5,7 +5,7 @@
 	"license": "",
 	"main": "index.js",
 	"scripts": {
-		"start": "node index.js"
+		"start": "node app/index.js"
 	},
 	"dependencies": {
 		"express": "^4.17.1",

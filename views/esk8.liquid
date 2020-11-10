@@ -6,42 +6,86 @@
 		<form action="" id="calc-form">
 			<h2>ESK8 Calculator</h2>
 
-			<h6>Battery</h6>
-			<label for="nominal-voltage">Nominal voltage per cell</label>
-			<select id="nominal-voltage">
-				<option value="3.6">3.6v (Li-ion)</option>
-				<option value="3.7">3.7v (LiPo)</option>
-				<option value="3.25">3.25v (LiFePO4)</option>
-			</select>
-			<label for="num-of-cells">Cells in series</label>
-			<input class="text" id="num-of-cells" type="number" min="6" max="20" placeholder="6S - 20S" required />
+			<section>
+				<h6>Battery</h6>
+				<label for="battery-nominal-voltage">Nominal voltage per cell</label>
+				<select id="battery-nominal-voltage">
+					<option value="3.6">3.6v (Li-ion)</option>
+					<option value="3.7">3.7v (LiPo)</option>
+					<option value="3.25">3.25v (LiFePO4)</option>
+				</select>
+				<label for="battery-cells-in-series">Cells in series</label>
+				<input class="text" id="battery-cells-in-series" type="number" min="6" max="20" placeholder="6S - 20S" required />
+			</section>
 
-			<h6>Motor</h6>
-			<label for="pole-pairs">Pole pairs</label>
-			<input class="text" id="pole-pairs" type="number" min="4" placeholder="usually 7" required />
-			<label for="motor-kv">Kv (RPM per volt)</label>
-			<input class="text" id="motor-kv" type="number" min="10" placeholder="60,140,200 etc.." required />
-			<label for="motor-pulley">Pulley teeth</label>
-			<input class="text" id="motor-pulley" type="number" min="5" placeholder="14,15,16 etc.." required />
+			<section>
+				<div class="alternative-bg"></div>
+				<h6>Motor</h6>
+				<label for="motor-pole-pairs">Pole pairs</label>
+				<input class="text" id="motor-pole-pairs" type="number" min="4" placeholder="usually 7" required />
+				<label for="motor-kv">Kv (RPM per volt)</label>
+				<input class="text" id="motor-kv" type="number" min="40" placeholder="60,140,200 etc.." required />
+				<label for="motor-pulley-teeth">Pulley teeth</label>
+				<input class="text" id="motor-pulley-teeth" type="number" min="8" placeholder="14,15,16 etc.." required />
+			</section>
 
-			<h6>Wheel</h6>
-			<label for="wheel-size">Size (mm)</label>
-			<input class="text" id="wheel-size" type="number" min="50" placeholder="83,90,97,107 etc.." required />
-			<label for="wheel-pulley">Pulley teeth</label>
-			<input class="text" id="wheel-pulley" type="number" min="5" placeholder="32,38,62,66 etc.." required />
+			<section>
+				<h6>Wheel</h6>
+				<label for="wheel-size">Size (mm)</label>
+				<input class="text" id="wheel-size" type="number" min="50" placeholder="83,90,97,107 etc.." required />
+				<label for="wheel-pulley-teeth">Pulley teeth</label>
+				<input class="text" id="wheel-pulley-teeth" type="number" min="26" placeholder="32,38,62,66 etc.." required />
+			</section>
 
-			<h6>Custom</h6>
-			<label for="speed-limit">I want to limit my speed (Km/h)</label>
-			<input class="text" id="speed-limit" type="number" min="0" placeholder="20, 25, 30 etc.." />
+			<section>
+				<div class="alternative-bg"></div>
+				<h6>Custom</h6>
+				<label for="custom-speed-limit">I want to limit my speed (Km/h)</label>
+				<input class="text" id="custom-speed-limit" type="number" min="0" placeholder="20, 25, 30 etc.." />
+			</section>
 
-			<h6 id="results-label" style="display: none; color: #090">Results</h6>
-			<textarea id="results" rows="2" style="display: none; border-color: #090"></textarea>
+			<section id="results" style="display: none;">
+				<h6 style="color: var(--color_theme-main);">Results</h6>
+				<textarea rows="2" style="border-color: var(--color_theme-main);"></textarea>
+			</section>
 
-			<button class="square" type="submit"><span>Calculate</span></button>
+			<section style="flex-direction: row;">
+				<button class="square" type="submit"><span>Calculate</span></button>&nbsp;
+				<a id="btn-clear" class="square warn"><span>Clear</span></a>
+			</section>
 		</form>
 	</div>
 </div>
 <script>
+	const calcForm = document.querySelector('#calc-form');
+	const resultsElm = calcForm.querySelector('#results');
+	const resultsTextElm = resultsElm.querySelector('textarea');
+
+	const shor2long = {
+		"bnv": "battery nominal voltage", "bcis": "battery cells in series",
+		"mpp": "motor pole pairs", "mkv": "motor kv", "mpt": "motor pulley teeth",
+		"ws": "wheel size", "wpt": "wheel pulley teeth",
+		"csl": "custom speed limit"
+	};
+
+	const long2short = {};
+	let keys = Object.keys(shor2long);
+	for(let key of keys) {
+		let value = shor2long[key];
+		long2short[value] = key;
+	}
+
+	const validationFuncs = {
+		"bnv": v => v > 0,
+		"bcis": v => v >= 6,
+		"mpp": v => v >= 4,
+		"mkv": v => v >= 40,
+		"mpt": v => v >= 8,
+		"ws": v => v >= 50,
+		"wpt": v => v >= 26,
+		"csl": v => v >= 0
+	};
+
 	function isNumeric(variable) {
 		if(typeof variable === 'string' && variable === '') return false;
 		else return !isNaN(variable);
@@ -54,50 +98,47 @@
 		return km;
 	}
 
-	function calculate() {
-		let data = new Map();
-		data.set('nominal voltage', document.querySelector('#nominal-voltage').value);
-		data.set('number of cells', document.querySelector('#num-of-cells').value);
-		data.set('motor pole pairs', document.querySelector('#pole-pairs').value);
-		data.set('motor Kv', document.querySelector('#motor-kv').value);
-		data.set('motor pulley teeth', document.querySelector('#motor-pulley').value);
-		data.set('wheel pulley teeth', document.querySelector('#wheel-pulley').value);
-		data.set('wheel size', document.querySelector('#wheel-size').value);
-		data.set('speed limit', document.querySelector('#speed-limit').value);
+	function getElm(key) {
+		let longKey = shor2long[key];
+		let query = '#' + longKey.replaceAll(' ', '-');
+		return calcForm.querySelector(query);
+	}
 
-		for(let [key, value] of data) {
-			if(isNumeric(value)) {
-				if(key === 'nominal voltage') data.set(key, parseFloat(value));
-				else data.set(key, parseInt(value));
-			}
-			else if(key === 'speed limit') {
-				data.set(key, 0);
-			}
-			else {
-				alert(`${key} is invalid`);
+	function calculate() {
+		const values = {};
+		let keys = Object.keys(shor2long);
+		for(let key of keys) {
+			let value;
+			if(key === 'bnv' || key === 'csl') value = parseFloat(getElm(key).value, 10);
+			else value = parseInt(getElm(key).value, 10);
+
+			if(!validationFuncs[key](value)) {
+				alert(`${shor2long[key]} is invalid`);
 				return;
 			}
+
+			values[key] = value;
 		}
 
-		let voltage = data.get('number of cells') * data.get('nominal voltage');
-		let gearRatio = data.get('motor pulley teeth') / data.get('wheel pulley teeth');
-		let wheelCircumference = Math.PI * data.get('wheel size');
-		let maxMotorRPM = data.get('motor Kv') * voltage;
-		let maxMotorERPM = maxMotorRPM * data.get('motor pole pairs');
+		let voltage = values['bcis'] * values['bnv'];
+		let gearRatio = values['mpt'] / values['wpt'];
+		let wheelCircumference = Math.PI * values['ws'];
+		let maxMotorRPM = values['mkv'] * voltage;
+		let maxMotorERPM = maxMotorRPM * values['mpp'];
 		let topSpeed = mm2km(maxMotorRPM * gearRatio * 60 * wheelCircumference);
 
 		let results = {
 			gear_ratio: gearRatio.toFixed(2),
 			top_speed: topSpeed.toFixed(2),
 			speed_limit: {
-				speed: data.get('speed limit'),
+				speed: values['csl'],
 				rpm: 0,
 				erpm: 0
 			}
 		};
 
-		if(data.get('speed limit') > 0) {
-			let ratio = data.get('speed limit') / topSpeed;
+		if(values['csl'] > 0) {
+			let ratio = values['csl'] / topSpeed;
 			results.speed_limit.rpm = (maxMotorRPM * ratio).toFixed(2);
 			results.speed_limit.erpm = (maxMotorERPM * ratio).toFixed(2);
 		}
@@ -105,24 +146,78 @@
 		return results;
 	}
 
-	const calcForm = document.querySelector('#calc-form');
 	calcForm.addEventListener('submit', (event) => {
+		event.preventDefault();
+		
+		if(!isNumeric(getElm('csl').value)) getElm('csl').value = 0;
+
 		let calculations = calculate();
-		let resultsElm = calcForm.querySelector('#results');
+		if(!calculations) {
+			return false;
+		}
 		let resultsText = `- Gear ratio: ${calculations.gear_ratio}\n- Top speed: ${calculations.top_speed} Km/h`;
 
 		if(calculations.speed_limit.speed > 0) {
-			resultsElm.setAttribute('rows', 4);
+			resultsTextElm.setAttribute('rows', 4);
 			resultsText += `\n- Set your ESC to max ${calculations.speed_limit.erpm} ERPM (${calculations.speed_limit.rpm} RPM)\n  to limit your board to ${calculations.speed_limit.speed} Km/h`;
 		} else {
-			resultsElm.setAttribute('rows', 2);
+			resultsTextElm.setAttribute('rows', 2);
 		}
 
-		resultsElm.value = resultsText;
+		resultsTextElm.value = resultsText;
 		resultsElm.style.display = 'block';
-		calcForm.querySelector('#results-label').style.display = 'block';
-		event.preventDefault();
+
+		let hash = '#';
+		let keys = Object.keys(shor2long);
+		for(let key of keys) {
+			let value;
+			if(key === 'bnv' || key === 'csl') value = parseFloat(getElm(key).value, 10);
+			else value = parseInt(getElm(key).value, 10);
+			
+			hash += `${key}=${value};`;
+		}
+		window.location.hash = hash;
+
 		return false;
 	});
+
+	const clearBtn = document.querySelector('#btn-clear');
+	clearBtn.addEventListener('click', (event) => {
+		let inputs = calcForm.querySelectorAll('input');
+		for(let input of inputs) {
+			input.value = '';
+		}
+		resultsElm.style.display = 'none';
+	});
+
+	let hash = window.location.hash.slice(1).split(';');//for example: #bnv=3.7;bcis=10;mpp=7;mkv=190;mpt=15;ws=97;wpt=36;csl=25;
+	let hashVars = {};
+	for(let part of hash) {
+		let key, value;
+		[key, value] = part.split('=');
+		if(value && shor2long.hasOwnProperty(key)) hashVars[key] = value;
+	}
+	
+	let varsKeys = Object.keys(hashVars);
+	for(let key of varsKeys) {
+		let value;
+		if(key === 'bnv' || key === 'csl') value = parseFloat(hashVars[key], 10);
+		else value = parseInt(hashVars[key], 10);
+
+		if(validationFuncs[key](value)) {
+			if(key === 'bnv') {
+				let selectElm = getElm('bnv');
+				for(let i = 0; i < selectElm.options.length; i++) {
+					if(selectElm.options[i].value == value) {
+						selectElm.selectedIndex = i;
+						break;
+					}
+				}
+			}
+			else {
+				getElm(key).value = value;
+			}
+		}
+	}
 </script>
 {% endblock %}
