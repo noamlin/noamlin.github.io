@@ -281,7 +281,7 @@ div.hero-cover.main-small {
   background-position: 50% 50%;
 }
 div.blocks-row {
-  width: 90vw;
+  width: calc(100% - 10vw);
   margin: 9vh 5vw;
   display: flex;
   justify-content: space-between;
@@ -356,9 +356,10 @@ div.blocks-row > div.block h2 {
   font-size: 300%;
 }
 div.blocks-row > div.block h2 > a.anchor {
-  width: 60px;
-  height: 38px;
-  right: -59px;
+  width: 46px;
+  height: 28px;
+  right: -45px;
+  top: 10px;
 }
 div.blocks-row > div.block h3 {
   font-size: 230%;
@@ -382,7 +383,10 @@ div.blocks-row > div.block p a:hover {
   color: black;
 }
 div.blocks-row > div.block p span.note {
-  opacity: 0.7;
+  color: #808080;
+}
+div.blocks-row > div.block p span.warning {
+  color: #ee0000;
 }
 div.blocks-row > div.block iframe {
   width: 100%;
@@ -395,11 +399,51 @@ div.blocks-row > div.block code-block {
 div.blocks-row.blocks-2 > div.block {
   width: 47%;
 }
-div.blocks-row.docs > div.block {
+div.blocks-row.blocks-2.docs-n-menu {
+  width: calc(100% - 5vw);
+  margin-left: 0;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav,
+div.blocks-row.blocks-2.docs-n-menu > div.block {
   align-items: flex-start;
 }
-div.blocks-row.docs > div.block > * {
+div.blocks-row.blocks-2.docs-n-menu > nav > *,
+div.blocks-row.blocks-2.docs-n-menu > div.block > * {
   text-align: left;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: calc(10vw + 180px);
+  background-color: #e0fffb;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul {
+  list-style-type: none;
+  margin-top: 3rem;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul li {
+  padding: 0.5rem 0;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul li.sub {
+  margin-left: 2rem;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul li.sub a {
+  font-weight: 400;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul li a {
+  text-transform: none;
+}
+div.blocks-row.blocks-2.docs-n-menu > nav > ul li a:hover {
+  color: #005148;
+}
+div.blocks-row.blocks-2.docs-n-menu > div.block {
+  width: calc(100% - 180px - 10vw);
+  padding-left: 4vw;
+  box-shadow: 12px 0px 9px -9px rgba(0, 0, 0, 0.2) inset;
+}
+div.blocks-row.blocks-2.docs-n-menu > div.block h2 {
+  margin-top: 2rem;
 }
 div.cover {
   height: 200px;
