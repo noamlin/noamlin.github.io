@@ -3,7 +3,7 @@
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local('Source Code Pro Regular'), local('SourceCodePro-Regular'), url(https://fonts.gstatic.com/s/sourcecodepro/v13/HI_SiYsKILxRpg3hIP6sJ7fM7PqVOg.ttf) format('truetype');
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v13/HI_SiYsKILxRpg3hIP6sJ7fM7PqVOg.ttf) format('truetype');
 }
 * {
   margin: 0;
@@ -63,4 +63,16 @@ div.wrapper.lines100 pre {
 }
 div.wrapper.lines100 p.lines {
   width: 54px;
+}
+div.wrapper.one-liner {
+  display: inline-flex;
+  border-left-width: 4px;
+  box-shadow: none;
+}
+div.wrapper.one-liner p.lines {
+  display: none;
+}
+div.wrapper.one-liner pre {
+  width: auto;
+  padding: 2px 8px;
 }

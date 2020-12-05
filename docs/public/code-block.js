@@ -17,6 +17,11 @@ class CodeBlock extends HTMLElement {
 		prismStylesElm.setAttribute('href', 'https://cdn.jsdelivr.net/npm/prismjs@1.21.0/themes/prism.css');
 		//prismStylesElm.setAttribute('href', 'https://cdn.jsdelivr.net/npm/prismjs@1.21.0/themes/prism-twilight.css');
 
+		let oneLiner = false;
+		if(this.hasAttribute('one-liner') && this.getAttribute('one-liner') === 'true') {
+			oneLiner = true;
+		}
+
 		let wrapper = document.createElement('div');
 		wrapper.classList.add('wrapper');
 
@@ -34,16 +39,21 @@ class CodeBlock extends HTMLElement {
 		let lines = document.createElement('p');
 		lines.classList.add('lines');
 
-		let numOfLines;
-		try { numOfLines = (code.textContent.match(/\n/g) || '').length + 1 }
-		catch(e) { numOfLines = 0; }
-		for(let i=1; i < numOfLines; i++) {
-			lines.textContent += `${i}\n`;
+		if(oneLiner) {
+			wrapper.classList.add('one-liner');
 		}
-		lines.textContent += `${numOfLines}`;
-
-		if(numOfLines >= 100)  wrapper.classList.add('lines100');
-		else if(numOfLines >= 10)  wrapper.classList.add('lines10');
+		else {
+			let numOfLines;
+			try { numOfLines = (code.textContent.match(/\n/g) || '').length + 1 }
+			catch(e) { numOfLines = 0; }
+			for(let i=1; i < numOfLines; i++) {
+				lines.textContent += `${i}\n`;
+			}
+			lines.textContent += `${numOfLines}`;
+	
+			if(numOfLines >= 100)  wrapper.classList.add('lines100');
+			else if(numOfLines >= 10)  wrapper.classList.add('lines10');
+		}
 
 		wrapper.append(lines, pre);
 		this.shadowRoot.append(linkElem, prismStylesElm, wrapper);

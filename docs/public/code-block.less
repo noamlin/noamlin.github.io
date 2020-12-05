@@ -104,4 +104,18 @@ div.wrapper {
 			width: @lines-gap-100;
 		}
 	}
+
+	&.one-liner {
+		display: inline-flex;
+		border-left-width: ceil(@border-left-width / 2);
+		box-shadow: none;
+
+		p.lines {
+			display: none;
+		}
+		pre {
+			width: auto;
+			padding: 2px 8px;
+		}
+	}
 }

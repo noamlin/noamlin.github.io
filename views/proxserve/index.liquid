@@ -27,7 +27,7 @@
 			<li class="sub"><a href="#basic-event-listeners">Basic Event Listeners</a>
 
 			<li><a href="#advanced-usage">Advanced Usage</a>
-			<li class="sub"><a href="#advanced-event-listeners">Advanced Event Listeners</a>
+			<li class="sub"><a href="#advanced-event-listeners">Adv. Event Listeners</a>
 		</ul>
 	</nav>
 	<div class="block">
@@ -47,7 +47,7 @@ const Proxserve = require('proxserve');
 		<h4 id="client-side">Client side<a class="anchor" href="#client-side"></a></h4>
 		<p>Simplest way is to use a CDN<br>
 		<span class="note">Don't forget to replace "1.x.x" with the desired version
-		(recent version is <span id="proxserve-recent-version">1.x.x</span>)<span></p>
+		(recent version is <span id="proxserve-recent-version">1.x.x</span>)</span></p>
 		<script>
 fetch('https://api.github.com/repos/noamlin/proxserve/tags',
 {
@@ -108,7 +108,7 @@ const main = new Proxserve({ subObj: { arr: [0, 1, 2] } });
 		<p>Proxserve by default has its own "event loop".<br>
 		It waits and accumulates changes before it fires the events in order to let you decide what data change do you want to handle and what not.
 		This makes both, Proxserve and your own code, very efficient and fast.<br>
-		The time of a cycle is controlled via a "delay" option. This cycle can be disabled.<br>
+		The time of a cycle is controlled via the "<a href="{{ proxserveUrl }}/api#options">delay</a>" option. This cycle can be disabled.<br>
 		An example for a case like this is Array.splice(). This method causes javascript to generate many many changes
 		(javascript moves cells in the array one by one).
 		Instead of having your listener invoked many times, it will be invoked once with an array of all changes.
@@ -122,7 +122,7 @@ const main = new Proxserve({ subObj: { arr: [0, 1, 2] } });
 		At the end of the cycle's time all internal references of the sub-object are deleted and then the sub-object
 		(which is a proxy-object) gets revoked - javascript deletes the reference of the proxy-object to the original target object,
 		allowing the garbage collector to collect it.<br>
-		<i class="fas fa-exclamation warning round"></i> <span class="warning">Caveat:</span> handling objects outside of the proxerve object
+		<i class="fas fa-exclamation danger round"></i> <span class="danger">Caveat:</span> handling objects outside of the proxerve object
 		might lead to pointing to revoked proxies (destroyed objects).
 		This can throw unexpected errors. Consider this example:</p>
 		<code-block data-language="javascript">
@@ -137,7 +137,7 @@ setTimeout(() => {
 	console.log(willSmith); //throws an error. "willSmith" is now a revoked proxy
 }, 1500);
 		</code-block>
-		<p><span class="note">Solutions for this situation are at the <a href="{{ ohUrl }}/api">API</a> page</span></p>
+		<p><span class="note">Solutions for this situation are at the <a href="{{ proxserveUrl }}/api">API</a> page</span></p>
 		
 		<h2 id="basic-usage">Basic usage<a class="anchor" href="#basic-usage"></a></h2>
 		<p>Note: for those who haven't worked with proxy objects before - Proxserve object actually masks a target object.
@@ -152,7 +152,7 @@ const smartObj = new Proxserve(originalObj);
 //short way
 const smartObj = new Proxserve({ ... });
 		</code-block>
-		<p><i class="fas fa-exclamation warning round"></i> <span class="warning">Caution:</span> after initiating
+		<p><i class="fas fa-exclamation danger round"></i> <span class="danger">Caution:</span> after initiating
 		a Proxserve do not refer to the original object. This will bypass Proxserve and will not emit events</p>
 		<code-block data-language="javascript">
 const Proxserve = require('proxserve');
@@ -192,7 +192,7 @@ delete pObj.subObj; //will trigger pObj's "delete" listener once
 
 		<h4 id="advanced-event-listeners">Advanced Event Listeners<a class="anchor" href="#advanced-event-listeners"></a></h4>
 		<p>Adding event listeners to properties not yet created, Listeners adding more listeners and more.<br>
-		Watch out for race conditions</p>
+		<span class="note">Watch out for race conditions</span></p>
 		<code-block data-language="javascript">
 const Proxserve = require('./dist/proxserve.js');
 const game = new Proxserve({ total: 0 });
@@ -210,17 +210,18 @@ game.once('create', '.players', function(change) { //adding a listener to a path
 	game.players.on('change', (changes) => { //adding another listener in the middle of the event emitting
 		for(let change of changes) {
 			let pathArr = Proxserve.splitPath(change.path);
-			if(pathArr.length === 0) continue;
-			else if(pathArr[0] === '4') { //don't listen to any more changes after player number 4
-				game.players.removeListener('playerListenerID');
-				return;
+			if(Number.isInteger(pathArr[0])) {
+				if(pathArr[0] >= 4) { //don't listen to any more changes after player number 4
+					game.players.removeListener('playersListenerID');
+					return;
+				}
+
+				//attach a listener to the currently created player
+				this[ pathArr[0] ].on(['create','update'], '.score', updateTotalScore);
+				update_ui_for_players(change);
 			}
-
-			this[ pathArr[0] ].on(['create','update'], '.score', updateTotalScore);
-
-			update_ui_for_players(change);
 		}
-	}, 'playerListenerID');
+	}, 'playersListenerID');
 });
 
 game.players = [
@@ -237,9 +238,10 @@ setTimeout(() => {
 	game.players[3].score = 3;
 	game.players[0].score = 1;
 }, 200); //simulate some CPU time
-setTimeout(() => {
-	console.log(game.total); //output 9
-}, 300); //simulate some CPU time
+
+game.on('change', '.total', function(changes) {
+	console.log(game.total); //will output 9
+});
 		</code-block>
 	</div>
 </div>

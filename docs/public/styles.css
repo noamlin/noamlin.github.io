@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Fira+Code&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;800&display=swap');
 /* dimensions */
 /* colors */
 /* fonts */
@@ -311,11 +311,17 @@ div.blocks-row > div.block i[class*="fa-"].round {
   border-radius: 10px;
   border: 1px solid #00a390;
 }
-div.blocks-row > div.block i[class*="fa-"].warning {
+div.blocks-row > div.block i[class*="fa-"].danger {
   color: red;
 }
-div.blocks-row > div.block i[class*="fa-"].warning.round {
+div.blocks-row > div.block i[class*="fa-"].danger.round {
   border-color: red;
+}
+div.blocks-row > div.block i[class*="fa-"].good {
+  color: #008800;
+}
+div.blocks-row > div.block i[class*="fa-"].good.round {
+  border-color: #008800;
 }
 div.blocks-row > div.block h1,
 div.blocks-row > div.block h2,
@@ -352,6 +358,12 @@ div.blocks-row > div.block h3:hover > a.anchor,
 div.blocks-row > div.block h4:hover > a.anchor {
   opacity: 1;
 }
+div.blocks-row > div.block h1 span.thin,
+div.blocks-row > div.block h2 span.thin,
+div.blocks-row > div.block h3 span.thin,
+div.blocks-row > div.block h4 span.thin {
+  font-weight: 400;
+}
 div.blocks-row > div.block h2 {
   font-size: 300%;
 }
@@ -368,25 +380,58 @@ div.blocks-row > div.block h4 {
   font-size: 180%;
   margin-top: 1rem;
 }
-div.blocks-row > div.block p {
+div.blocks-row > div.block p,
+div.blocks-row > div.block table.params th,
+div.blocks-row > div.block table.params td {
   font-size: 110%;
   font-family: 'Fira Code', monospace;
   line-height: 2.3;
 }
-div.blocks-row > div.block p a {
+div.blocks-row > div.block p a,
+div.blocks-row > div.block table.params th a,
+div.blocks-row > div.block table.params td a {
   letter-spacing: 0;
   font-size: 100%;
   text-transform: none;
   color: #005148;
 }
-div.blocks-row > div.block p a:hover {
+div.blocks-row > div.block p a:hover,
+div.blocks-row > div.block table.params th a:hover,
+div.blocks-row > div.block table.params td a:hover {
   color: black;
 }
-div.blocks-row > div.block p span.note {
+div.blocks-row > div.block p span.note,
+div.blocks-row > div.block table.params th span.note,
+div.blocks-row > div.block table.params td span.note {
   color: #808080;
 }
-div.blocks-row > div.block p span.warning {
+div.blocks-row > div.block p span.danger,
+div.blocks-row > div.block table.params th span.danger,
+div.blocks-row > div.block table.params td span.danger {
   color: #ee0000;
+}
+div.blocks-row > div.block p span.good,
+div.blocks-row > div.block table.params th span.good,
+div.blocks-row > div.block table.params td span.good {
+  color: #008800;
+}
+div.blocks-row > div.block p span.indent1,
+div.blocks-row > div.block table.params th span.indent1,
+div.blocks-row > div.block table.params td span.indent1 {
+  padding-left: 2rem;
+}
+div.blocks-row > div.block table.params {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+div.blocks-row > div.block table.params th,
+div.blocks-row > div.block table.params td {
+  border: 1px solid black;
+  line-height: normal;
+  padding: 0.5rem;
+}
+div.blocks-row > div.block table.params td.indent {
+  padding-left: 1.5rem;
 }
 div.blocks-row > div.block iframe {
   width: 100%;
@@ -395,6 +440,10 @@ div.blocks-row > div.block iframe {
 div.blocks-row > div.block code-block {
   display: block;
   width: 100%;
+}
+div.blocks-row > div.block code-block.inline {
+  display: inline;
+  width: auto;
 }
 div.blocks-row.blocks-2 > div.block {
   width: 47%;
@@ -433,6 +482,7 @@ div.blocks-row.blocks-2.docs-n-menu > nav > ul li.sub a {
 }
 div.blocks-row.blocks-2.docs-n-menu > nav > ul li a {
   text-transform: none;
+  text-shadow: 1px 1px 0 white;
 }
 div.blocks-row.blocks-2.docs-n-menu > nav > ul li a:hover {
   color: #005148;
