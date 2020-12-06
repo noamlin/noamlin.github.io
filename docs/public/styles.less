@@ -688,6 +688,29 @@ footer {
 		}
 	}
 
+	div.blocks-row.blocks-2.docs-n-menu {
+		margin-left: 5vw;
+		width: calc(100% - 10vw);
+		flex-direction: column;
+
+		& > nav {
+			width: 100%;
+
+			& > ul {
+				margin: 1rem 0;
+
+				& > li {
+					padding: 0.2rem 0;
+				}
+			}
+		}
+		& > div.block {
+			width: 100%;
+			padding-left: 0;
+			box-shadow: none;
+		}
+	}
+
 	footer {
 		flex-direction: column;
 
@@ -721,6 +744,10 @@ footer {
 	}
 }
 @media screen and (max-width: 599px) {
+	html {
+		font-size: 10px;
+	}
+	
 	div.blocks-row {
 		flex-direction: column;
 	

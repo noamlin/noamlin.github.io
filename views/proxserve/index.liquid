@@ -108,7 +108,7 @@ const main = new Proxserve({ subObj: { arr: [0, 1, 2] } });
 		<p>Proxserve by default has its own "event loop".<br>
 		It waits and accumulates changes before it fires the events in order to let you decide what data change do you want to handle and what not.
 		This makes both, Proxserve and your own code, very efficient and fast.<br>
-		The time of a cycle is controlled via the "<a href="{{ proxserveUrl }}/api#options">delay</a>" option. This cycle can be disabled.<br>
+		The time of a cycle is controlled via the "<a href="{{ proxserveUrl }}api#options">delay</a>" option. This cycle can be disabled.<br>
 		An example for a case like this is Array.splice(). This method causes javascript to generate many many changes
 		(javascript moves cells in the array one by one).
 		Instead of having your listener invoked many times, it will be invoked once with an array of all changes.
@@ -137,7 +137,7 @@ setTimeout(() => {
 	console.log(willSmith); //throws an error. "willSmith" is now a revoked proxy
 }, 1500);
 		</code-block>
-		<p><span class="note">Solutions for this situation are at the <a href="{{ proxserveUrl }}/api">API</a> page</span></p>
+		<p><span class="note">Solutions for this situation are at the <a href="{{ proxserveUrl }}api">API</a> page</span></p>
 		
 		<h2 id="basic-usage">Basic usage<a class="anchor" href="#basic-usage"></a></h2>
 		<p>Note: for those who haven't worked with proxy objects before - Proxserve object actually masks a target object.

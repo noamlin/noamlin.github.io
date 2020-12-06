@@ -119,3 +119,37 @@ div.wrapper {
 		}
 	}
 }
+@media screen and (max-width: 599px) {
+	div.wrapper {
+		font-size: 10px;
+
+		@digit-width: 6px;
+		@lines-gap-1: 30px;
+		@lines-gap-10: @lines-gap-1 + @digit-width;
+		@lines-gap-100: @lines-gap-10 + @digit-width;
+
+		pre {
+			width: calc(100% - @lines-gap-1);
+		}
+		p.lines {
+			width: @lines-gap-1;
+		}
+
+		&.lines10 {
+			pre {
+				width: calc(100% - @lines-gap-10);
+			}
+			p.lines {
+				width: @lines-gap-10;
+			}
+		}
+		&.lines100 {
+			pre {
+				width: calc(100% - @lines-gap-100);
+			}
+			p.lines {
+				width: @lines-gap-100;
+			}
+		}
+	}
+}

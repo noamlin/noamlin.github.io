@@ -76,3 +76,26 @@ div.wrapper.one-liner pre {
   width: auto;
   padding: 2px 8px;
 }
+@media screen and (max-width: 599px) {
+  div.wrapper {
+    font-size: 10px;
+  }
+  div.wrapper pre {
+    width: calc(100% - 30px);
+  }
+  div.wrapper p.lines {
+    width: 30px;
+  }
+  div.wrapper.lines10 pre {
+    width: calc(100% - 36px);
+  }
+  div.wrapper.lines10 p.lines {
+    width: 36px;
+  }
+  div.wrapper.lines100 pre {
+    width: calc(100% - 42px);
+  }
+  div.wrapper.lines100 p.lines {
+    width: 42px;
+  }
+}

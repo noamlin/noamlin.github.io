@@ -28,9 +28,9 @@ const liquidEngine = new Liquid({
 	cache: false,
 	globals: {
 		menus: menus,
-		noamlinUrl: `http://localhost:${port}`,
-		ohUrl: '/oh',
-		proxserveUrl: '/proxserve'
+		noamlinUrl: '/',
+		ohUrl: '/oh/',
+		proxserveUrl: '/proxserve/'
 	}
 });
 

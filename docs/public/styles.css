@@ -659,6 +659,25 @@ footer span.site-info {
   header a.menu-toggle {
     display: flex;
   }
+  div.blocks-row.blocks-2.docs-n-menu {
+    margin-left: 5vw;
+    width: calc(100% - 10vw);
+    flex-direction: column;
+  }
+  div.blocks-row.blocks-2.docs-n-menu > nav {
+    width: 100%;
+  }
+  div.blocks-row.blocks-2.docs-n-menu > nav > ul {
+    margin: 1rem 0;
+  }
+  div.blocks-row.blocks-2.docs-n-menu > nav > ul > li {
+    padding: 0.2rem 0;
+  }
+  div.blocks-row.blocks-2.docs-n-menu > div.block {
+    width: 100%;
+    padding-left: 0;
+    box-shadow: none;
+  }
   footer {
     flex-direction: column;
   }
@@ -688,6 +707,9 @@ footer span.site-info {
   }
 }
 @media screen and (max-width: 599px) {
+  html {
+    font-size: 10px;
+  }
   div.blocks-row {
     flex-direction: column;
   }

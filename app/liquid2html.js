@@ -26,9 +26,9 @@ const liquidEngine = new Liquid({
 	root: `${baseDir}/views`,
 	globals: {
 		menus: menus,
-		noamlinUrl: `https://www.noaml.in`,
-		ohUrl: 'https://oh.noaml.in',
-		proxserveUrl: 'https://proxserve.noaml.in'
+		noamlinUrl: 'https://www.noaml.in/',
+		ohUrl: 'https://oh.noaml.in/',
+		proxserveUrl: 'https://proxserve.noaml.in/'
 	}
 });
 
